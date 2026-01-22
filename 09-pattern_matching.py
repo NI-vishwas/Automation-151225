@@ -1,9 +1,9 @@
 # Extract emails from emails.txt
 import re
 
-def extract_emails(text):
+def extract_emails(inp_str):
     pat = "[a-z0-9.]+@[a-z]+\.[a-z]+" 
-    return re.findall(pat, text)
+    return re.findall(pat, inp_str)
 
 def readfile(fname):
     data = ''
