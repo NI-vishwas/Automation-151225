@@ -11,14 +11,13 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 
 # Compression
 def compress_to_zip(filepath):
-    if os.path.exists(filepath):
-        shutil.make_archive(filepath, 'zip', './')
-        print(f"Compressed Folder {filepath} successfully")
-    
-    print(f"Compressed file {filepath}")
     base_file = Path(filepath)
-    zipfilepath = base_file.with_suffix('.zip')
-    return zipfilepath
+    new_file = base_file.with_suffix('.zip')
+    if base_file.exists():
+        shutil.make_archive(new_file.stem, 'zip', './')
+        print(f"Compressed Folder {filepath} successfully to {new_file}")
+    
+    return base_file.with_suffix('.zip')
 
 # Uploading
 def upload_zip(filepath, folderID):
@@ -65,14 +64,15 @@ def upload_zip(filepath, folderID):
 # Main
 def main():
     # Calling compress method
-    # object_to_compress = input("Enter the folder name to compresss: ")
-    object_to_compress = '/home/vishwas/Workspace/temp/python_uploader/summary.log'
-    # zipfile = compress_to_zip(object_to_compress)
-    # print(f'Zipfilepath is: {zipfile}')
+    object_to_compress = input("Enter the folder name to compress: ")
+    # object_to_compress = '/home/vishwas/Workspace/temp/python_uploader/summary.log'
+    zipfile = compress_to_zip(object_to_compress)
+    print(f'Zipfilepath is: {zipfile}')
     # Calling upload method
-    # folderID = input('Enter the folder ID to upload: ')
-    folderID = '1vwtYSiodTNP4P0TXg_XzzsCyaQ32RpWO'
-    zipfile = '/home/vishwas/Workspace/temp/python_uploader/summary.log.zip'
+    folderID = input('Enter the folder ID to upload: ')
+    # change the folderID here
+    # folderID = '1vwtYSiodTNP4P0TXg_XzzsCyaQ32RpWO' 
+
     upload_zip(zipfile, folderID)
 
 
